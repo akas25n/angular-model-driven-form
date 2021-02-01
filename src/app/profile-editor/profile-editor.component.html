@@ -1,0 +1,42 @@
+<mat-card class="example-card">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="normal-form">
+      <div class="controles-container">
+        <mat-form-field>
+          <mat-label>First name</mat-label>
+          <input type="text" matInput formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Last name</mat-label>
+          <input type="text" matInput formControlName="lastName">
+        </mat-form-field>
+
+        <div formGroupName="address">
+          <mat-form-field>
+            <mat-label>Street</mat-label>
+            <input formControlName="street" matInput>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>City</mat-label>
+            <input formControlName="city" matInput>
+          </mat-form-field>
+        </div>
+
+
+      <div formArrayName="aliases">
+        <h3>Aliases</h3> <button mat-raised-button (click)="addAlias()">Add Alias</button>
+
+        <div *ngFor="let alias of form.controls.aliases?.value; let i=index">
+          <ng-container [formGroupName]="i">
+            <input type="text" formControlName="key" placeholder="Key">
+            <input type="text" formControlName="value" placeholder="Value">
+          </ng-container>
+          <button (click)="deleteAlias(i)" mat-raised-button="">delete</button>
+        </div>
+      </div>
+  <div class="button-row">
+    <button type="submit" [disabled]="!form.valid">Submit</button>
+  </div>
+      </div>
+</form>
+</mat-card>
+
